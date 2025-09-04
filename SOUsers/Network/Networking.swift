@@ -33,7 +33,7 @@ struct Networking: NetworkingProtocol {
     }
 
     func fetch(from request: any Request) async throws -> Data {
-        var request = try request.buildURLRequest()
+        let request = try request.buildURLRequest()
         
         let (data, response) = try await session.data(for: request)
         

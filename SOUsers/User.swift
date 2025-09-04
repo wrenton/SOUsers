@@ -10,6 +10,6 @@ import Foundation
 struct User: Identifiable {
     let id: Int
     let username: String
-    let profilePicture: URL
+    let profilePicture: URL?
     let reputationScore: Int
 }

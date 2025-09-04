@@ -7,8 +7,8 @@
 
 import Foundation
 
-protocol UsersAPIProtocol {
-    func fetchAllUsers() async throws -> [User]
+enum UsersAPIError: Error {
+    case usersRetrievalError(Error)
 }
 
 struct UsersEndpoint: Request {
@@ -34,6 +34,10 @@ struct UsersEndpoint: Request {
     }
 }
 
+protocol UsersAPIProtocol {
+    func fetchAllUsers() async throws -> [User]
+}
+
 actor UsersAPI: UsersAPIProtocol {
     private let networking: NetworkingProtocol
     
@@ -42,8 +46,15 @@ actor UsersAPI: UsersAPIProtocol {
     }
     
     func fetchAllUsers() async throws -> [User] {
-        var usersDTO = try await networking.fetch(from: UsersEndpoint())
-        
-        return []
+        do {
+            let data = try await networking.fetch(from: UsersEndpoint())
+            let responseDTO = try JSONDecoder().decode(UsersResponseDTO.self, from: data)
+            let users = responseDTO.items.compactMap {
+                User.from(dto: $0)
+            }
+            return users
+        } catch {
+            throw UsersAPIError.usersRetrievalError(error)
+        }
     }
 }
