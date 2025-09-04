@@ -53,11 +53,6 @@
 			path = SOUsersTests;
 			sourceTree = "<group>";
 		};
-		D33FE0722E699C22000E11F8 /* SOUsersUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = SOUsersUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,7 +85,6 @@
 			children = (
 				D33FE0512E699C21000E11F8 /* SOUsers */,
 				D33FE0682E699C22000E11F8 /* SOUsersTests */,
-				D33FE0722E699C22000E11F8 /* SOUsersUITests */,
 				D33FE0502E699C21000E11F8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -165,9 +159,6 @@
 			);
 			dependencies = (
 				D33FE0712E699C22000E11F8 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				D33FE0722E699C22000E11F8 /* SOUsersUITests */,
 			);
 			name = SOUsersUITests;
 			packageProductDependencies = (
