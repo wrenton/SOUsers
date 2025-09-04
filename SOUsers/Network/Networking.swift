@@ -21,11 +21,11 @@ enum HTTPMethod: String {
     case delete
 }
 
-protocol NetworkProtocol {
+protocol NetworkingProtocol {
     func fetch(from request: Request) async throws -> Data
 }
 
-struct Networking: NetworkProtocol {
+struct Networking: NetworkingProtocol {
     private let session: URLSession
     
     init(session: URLSession) {
