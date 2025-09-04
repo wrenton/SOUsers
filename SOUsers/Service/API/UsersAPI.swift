@@ -41,7 +41,7 @@ protocol UsersAPIProtocol {
 actor UsersAPI: UsersAPIProtocol {
     private let networking: NetworkingProtocol
     
-    init(networking: NetworkingProtocol) {
+    init(networking: NetworkingProtocol = Networking()) {
         self.networking = networking
     }
     

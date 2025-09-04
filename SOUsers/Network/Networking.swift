@@ -28,18 +28,26 @@ protocol NetworkingProtocol {
 struct Networking: NetworkingProtocol {
     private let session: URLSession
     
-    init(session: URLSession) {
+    init(session: URLSession = .shared) {
         self.session = session
     }
 
     func fetch(from request: any Request) async throws -> Data {
         let request = try request.buildURLRequest()
         
+        #if DEBUG
+        print("Requesting: \(request.url?.absoluteString ?? "Invalid URL")")
+        #endif
+        
         let (data, response) = try await session.data(for: request)
         
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidResponse
         }
+        
+        #if DEBUG
+        print("Response Status Code: \(httpResponse.statusCode)")
+        #endif
 
         try checkResponse(httpResponse)
 
