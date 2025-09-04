@@ -49,10 +49,7 @@ actor UsersAPI: UsersAPIProtocol {
         do {
             let data = try await networking.fetch(from: UsersEndpoint())
             let responseDTO = try JSONDecoder().decode(UsersResponseDTO.self, from: data)
-            let users = responseDTO.items.compactMap {
-                User.from(dto: $0)
-            }
-            return users
+            return .from(dto: responseDTO)
         } catch {
             throw UsersAPIError.usersRetrievalError(error)
         }
