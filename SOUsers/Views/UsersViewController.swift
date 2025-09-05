@@ -29,7 +29,7 @@ class UsersViewController: UIViewController, UITableViewDataSource {
     }()
     
     private let activityIndicatorView: UIActivityIndicatorView = {
-        let spinner = UIActivityIndicatorView(style: .large)
+        let spinner = UIActivityIndicatorView(style: .medium)
         spinner.hidesWhenStopped = true
         spinner.translatesAutoresizingMaskIntoConstraints = false
         return spinner
@@ -57,10 +57,10 @@ class UsersViewController: UIViewController, UITableViewDataSource {
         view.addSubview(activityIndicatorView)
 
         NSLayoutConstraint.activate([
-            titleTextView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            titleTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            titleTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            tableView.topAnchor.constraint(equalTo: titleTextView.bottomAnchor, constant: 0),
+            titleTextView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            titleTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            titleTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: titleTextView.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),

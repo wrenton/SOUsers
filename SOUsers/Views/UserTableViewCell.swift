@@ -26,9 +26,13 @@ class UserTableViewCell: UITableViewCell {
     }
     
     public func configure(with user: User, isFollowing: Bool) {
+        setupUI(user, isFollowing)
+        loadImage(from: user.profilePicture)
+    }
+    
+    private func setupUI(_ user: User, _ isFollowing: Bool) {
         usernameLabel.text = user.username
         reputationLabel.text = "Reputation: \(user.reputationScore)"
-        loadImage(from: user.profilePicture)
         let title = isFollowing ? "Unfollow" : "Follow"
         followButton.setTitle(title, for: .normal)
         followButton.setTitleColor(isFollowing ? .red : .systemBlue, for: .normal)

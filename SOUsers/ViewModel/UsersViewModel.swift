@@ -39,9 +39,7 @@ final class UsersViewModel: ObservableObject {
     }
     
     func toggleFollowingStatus(for userID: Int) {
-        let ids = followingAPI.fetchAllFollowedUsers()
-        
-        if ids.contains(userID) {
+        if isFollowing(for: userID) {
             followingAPI.unfollowUser(for: userID)
         } else {
             followingAPI.followUser(for: userID)
