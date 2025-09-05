@@ -11,7 +11,7 @@
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="119" id="olx-2J-Dmg" customClass="UserTableViewCell" customModule="SOUsers">
             <rect key="frame" x="0.0" y="0.0" width="393" height="119"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="olx-2J-Dmg" id="ERu-YP-Vrv">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="olx-2J-Dmg" id="ERu-YP-Vrv">
                 <rect key="frame" x="0.0" y="0.0" width="393" height="119"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -28,10 +28,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HWW-aX-DOa">
-                        <rect key="frame" x="283" y="10" width="100" height="100"/>
+                        <rect key="frame" x="283" y="9.6666666666666643" width="100" height="100"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="100" id="7yv-8W-vTT"/>
-                            <constraint firstAttribute="width" constant="100" id="ahh-KF-9OV"/>
+                            <constraint firstAttribute="width" constant="100" id="C6j-iD-nCW"/>
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rP1-5R-SLR">
@@ -46,12 +46,12 @@
                 <constraints>
                     <constraint firstItem="rP1-5R-SLR" firstAttribute="top" secondItem="b4c-WK-ugi" secondAttribute="bottom" constant="10" id="5FM-LJ-cHb"/>
                     <constraint firstItem="oJN-1v-4hH" firstAttribute="top" secondItem="ERu-YP-Vrv" secondAttribute="top" constant="10" id="7Fj-oB-4ll"/>
-                    <constraint firstAttribute="bottom" secondItem="HWW-aX-DOa" secondAttribute="bottom" constant="10" id="KHF-To-Ktw"/>
+                    <constraint firstAttribute="bottom" secondItem="rP1-5R-SLR" secondAttribute="bottom" constant="12" id="BjO-qU-MBs"/>
                     <constraint firstItem="b4c-WK-ugi" firstAttribute="top" secondItem="oJN-1v-4hH" secondAttribute="bottom" constant="10" id="NeF-tB-HTs"/>
                     <constraint firstItem="b4c-WK-ugi" firstAttribute="leading" secondItem="ERu-YP-Vrv" secondAttribute="leading" constant="10" id="PrQ-o6-chp"/>
-                    <constraint firstItem="HWW-aX-DOa" firstAttribute="top" secondItem="ERu-YP-Vrv" secondAttribute="top" constant="10" id="aX5-J8-lgq"/>
+                    <constraint firstItem="HWW-aX-DOa" firstAttribute="centerY" secondItem="ERu-YP-Vrv" secondAttribute="centerY" id="RsB-L8-m2q"/>
                     <constraint firstItem="rP1-5R-SLR" firstAttribute="leading" secondItem="ERu-YP-Vrv" secondAttribute="leading" constant="10" id="agM-gZ-6u6"/>
-                    <constraint firstAttribute="trailing" secondItem="HWW-aX-DOa" secondAttribute="trailing" constant="10" id="he7-be-sM8"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="HWW-aX-DOa" secondAttribute="trailing" constant="-10" id="hhW-SB-whi"/>
                     <constraint firstItem="oJN-1v-4hH" firstAttribute="leading" secondItem="ERu-YP-Vrv" secondAttribute="leading" constant="10" id="y2U-14-uRk"/>
                 </constraints>
             </tableViewCellContentView>
