@@ -15,14 +15,23 @@ class UserTableViewCell: UITableViewCell {
     
     static let identifier = "UserTableViewCell"
     
+    var followButtonAction: (() -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
-    public func configure(with user: User) {
+    @IBAction private func followButtonPressed() {
+        followButtonAction?()
+    }
+    
+    public func configure(with user: User, isFollowing: Bool) {
         usernameLabel.text = user.username
         reputationLabel.text = "Reputation: \(user.reputationScore)"
         loadImage(from: user.profilePicture)
+        let title = isFollowing ? "Unfollow" : "Follow"
+        followButton.setTitle(title, for: .normal)
+        followButton.setTitleColor(isFollowing ? .red : .systemBlue, for: .normal)
     }
     
     private func loadImage(from url: URL?) {

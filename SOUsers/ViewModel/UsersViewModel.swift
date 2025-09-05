@@ -14,9 +14,14 @@ final class UsersViewModel: ObservableObject {
     @Published private(set) var isLoading: Bool = false
     
     private let usersAPI: UsersAPIProtocol
+    private let followingAPI: FollowersAPIProtocol
     
-    init(usersAPI: UsersAPIProtocol = UsersAPI()) {
+    init(
+        usersAPI: UsersAPIProtocol = UsersAPI(),
+        followingAPI: FollowersAPIProtocol = FollowersAPI()
+    ) {
         self.usersAPI = usersAPI
+        self.followingAPI = followingAPI
     }
     
     func fetchUsers() async {
@@ -31,5 +36,19 @@ final class UsersViewModel: ObservableObject {
         }
         
         isLoading = false
+    }
+    
+    func toggleFollowingStatus(for userID: Int) {
+        let ids = followingAPI.fetchAllFollowedUsers()
+        
+        if ids.contains(userID) {
+            followingAPI.unfollowUser(for: userID)
+        } else {
+            followingAPI.followUser(for: userID)
+        }
+    }
+    
+    func isFollowing(for userID: Int) -> Bool {
+        followingAPI.isFollowing(for: userID)
     }
 }

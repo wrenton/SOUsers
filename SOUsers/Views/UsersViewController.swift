@@ -99,12 +99,14 @@ class UsersViewController: UIViewController, UITableViewDataSource {
     
     private func presentError(_ message: String) {
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        
         alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: { [weak self] _ in
             Task {
                 await self?.viewModel.fetchUsers()
             }
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
         present(alert, animated: true)
     }
 
@@ -119,8 +121,16 @@ class UsersViewController: UIViewController, UITableViewDataSource {
         ) as? UserTableViewCell else {
             return UITableViewCell()
         }
+        
         let user = viewModel.users[indexPath.row]
-        cell.configure(with: user)
+        let isFollowing = viewModel.isFollowing(for: user.id)
+        
+        cell.configure(with: user, isFollowing: isFollowing)
+        cell.followButtonAction = { [weak self] in
+            self?.viewModel.toggleFollowingStatus(for: user.id)
+            tableView.reloadRows(at: [indexPath], with: .none)
+        }
+        
         return cell
     }
 }
