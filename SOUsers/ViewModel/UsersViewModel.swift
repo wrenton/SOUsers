@@ -7,8 +7,7 @@
 
 import Foundation
 
-@MainActor
-final class UsersViewModel: ObservableObject {
+class UsersViewModel: ObservableObject {
     @Published private(set) var users: [User] = []
     @Published private(set) var errorMessage: String?
     @Published private(set) var isLoading: Bool = false
