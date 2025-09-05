@@ -22,6 +22,7 @@ struct UsersEndpoint: Request {
     
     var queryParameters: [URLQueryItem]? {
         [
+            URLQueryItem(name: "page", value: "1"),
             URLQueryItem(name: "pagesize", value: "20"),
             URLQueryItem(name: "order", value: "desc"),
             URLQueryItem(name: "sort", value: "reputation"),
