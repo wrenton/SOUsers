@@ -8,18 +8,23 @@
 import UIKit
 import Combine
 
-class UsersViewController: UIViewController {
+class UsersViewController: UIViewController, UITableViewDataSource {
     private let viewModel: UsersViewModel = UsersViewModel()
     private var cancellables = Set<AnyCancellable>()
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
     
-    // To test API request
-    private let userCountTextView: UITextView = {
+    private let titleTextView: UITextView = {
         let textView = UITextView()
         textView.isEditable = false
         textView.isScrollEnabled = false
         textView.font = UIFont.systemFont(ofSize: 18)
         textView.textAlignment = .center
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.text = "Stack Overflow Top Users"
         return textView
     }()
     
@@ -32,7 +37,7 @@ class UsersViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        setupTableView()
         setupUI()
         bindViewModel()
         Task {
@@ -40,15 +45,25 @@ class UsersViewController: UIViewController {
         }
     }
     
+    private func setupTableView() {
+        tableView.dataSource = self
+        let nib = UINib(nibName: UserTableViewCell.identifier, bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: UserTableViewCell.identifier)
+    }
+    
     private func setupUI() {
-        view.addSubview(userCountTextView)
+        view.addSubview(titleTextView)
+        view.addSubview(tableView)
         view.addSubview(activityIndicatorView)
 
         NSLayoutConstraint.activate([
-            userCountTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            userCountTextView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            userCountTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            userCountTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            titleTextView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            titleTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            titleTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            tableView.topAnchor.constraint(equalTo: titleTextView.bottomAnchor, constant: 0),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             activityIndicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             activityIndicatorView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
@@ -58,7 +73,7 @@ class UsersViewController: UIViewController {
         viewModel.$users
             .receive(on: DispatchQueue.main)
             .sink { [weak self] users in
-                self?.userCountTextView.text = "Users loaded: \(users.count)"
+                self?.tableView.reloadData()
             }
             .store(in: &cancellables)
 
@@ -74,10 +89,8 @@ class UsersViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isLoading in
                 if isLoading {
-                    self?.userCountTextView.isHidden = true
                     self?.activityIndicatorView.startAnimating()
                 } else {
-                    self?.userCountTextView.isHidden = false
                     self?.activityIndicatorView.stopAnimating()
                 }
             }
@@ -93,5 +106,21 @@ class UsersViewController: UIViewController {
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(alert, animated: true)
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.users.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: UserTableViewCell.identifier,
+            for: indexPath
+        ) as? UserTableViewCell else {
+            return UITableViewCell()
+        }
+        let user = viewModel.users[indexPath.row]
+        cell.configure(with: user)
+        return cell
     }
 }
