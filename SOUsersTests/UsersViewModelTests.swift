@@ -11,15 +11,15 @@ import Foundation
 
 struct UsersViewModelTests {
     private var usersAPI: UsersAPIMock
-    private var followingAPI: FollowersAPIMock
+    private var followersAPI: FollowersAPIMock
     private var viewModel: UsersViewModel
     
     init() {
         usersAPI = UsersAPIMock()
-        followingAPI = FollowersAPIMock()
+        followersAPI = FollowersAPIMock()
         viewModel = UsersViewModel(
             usersAPI: usersAPI,
-            followingAPI: followingAPI
+            followingAPI: followersAPI
         )
     }
     
@@ -53,32 +53,32 @@ struct UsersViewModelTests {
     @Test
     func toggleFollowingStatus_followsUser() throws {
         let userID = 101
-        #expect(!followingAPI.isFollowing(for: userID))
+        #expect(!followersAPI.isFollowing(for: userID))
 
         viewModel.toggleFollowingStatus(for: userID)
 
-        #expect(followingAPI.followUserCalled)
-        #expect(!followingAPI.unfollowUserCalled)
-        #expect(followingAPI.isFollowing(for: userID))
+        #expect(followersAPI.followUserCalled)
+        #expect(!followersAPI.unfollowUserCalled)
+        #expect(followersAPI.isFollowing(for: userID))
     }
 
     @Test
     func toggleFollowingStatus_unfollowsUser() throws {
         let userID = 202
-        followingAPI.followUser(for: userID)
-        #expect(followingAPI.isFollowing(for: userID))
+        followersAPI.followUser(for: userID)
+        #expect(followersAPI.isFollowing(for: userID))
        
         viewModel.toggleFollowingStatus(for: userID)
        
-        #expect(followingAPI.unfollowUserCalled)
-        #expect(!followingAPI.isFollowing(for: userID))
+        #expect(followersAPI.unfollowUserCalled)
+        #expect(!followersAPI.isFollowing(for: userID))
     }
 
     @Test
     func isFollowing_returnsCorrectStatus() throws {
         let followedID = 303
         let notFollowedID = 404
-        followingAPI.followUser(for: followedID)
+        followersAPI.followUser(for: followedID)
 
         #expect(viewModel.isFollowing(for: followedID))
         #expect(!viewModel.isFollowing(for: notFollowedID))
